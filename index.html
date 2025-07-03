@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="es">
+<!DOCTYPE html><html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -17,7 +16,7 @@
       padding: 2rem 1rem;
       text-align: center;
       position: relative;
-      background-image: url('https://store1.gofile.io/download/gZscRC/preview');
+      background-image: url('banner.jpg');
       background-repeat: no-repeat;
       background-position: center center;
       background-size: cover;
@@ -124,11 +123,12 @@
   <section class="container">
     <h3 class="section-title">📍 Ubicación</h3>
     <iframe 
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3731.028299018555!2d-90.43211888478579!3d19.85173568662898!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85ed019f8fefb437%3A0x46ca8e3b5fa014a9!2sParroquia%20Nuestra%20Se%C3%B1ora%20de%20Guadalupe!5e0!3m2!1ses!2smx!4v1688512345678!5m2!1ses!2smx" 
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3732.334163484528!2d-90.4346072!3d19.8431345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85ed01b586c2906f%3A0xd548ff18b96a3d3a!2sParroquia%20Nuestra%20Se%C3%B1ora%20de%20Guadalupe!5e0!3m2!1ses!2smx!4v1720000000000!5m2!1ses!2smx" 
       width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
   </section>
   <footer>
     <p>&copy; 2025 Parroquia Nuestra Señora de Guadalupe, Bonfil, Campeche. Todos los derechos reservados.</p>
+    <p style="font-size: 0.9rem;">* Asegúrate de subir <code>index.html</code> y <code>banner.jpg</code> en la misma carpeta.</p>
   </footer>
   <script>
     const activities = {
@@ -142,74 +142,73 @@
       "2025-07-08": ["5:00 pm - Misa en Kikab", "6:00 pm - Misa en Pénjamo", "6:00 pm - Misa en Tixmucuy", "7:00 pm - Misa en Noxyache"],
       "2025-07-09": ["7:00 am - Misa en Quetzal", "7:00 am - Misa en Nayarit"],
       "2025-07-10": ["8:00 am - Misa en Libertad", "8:30 am - Misa en Melchor", "10:00 am - Misa en San Luciano", "10:00 am - Misa en Bonfil", "11:00 am - Misa en Laureles", "12:00 pm - Misa en Nvo. Michoacán", "12:30 pm - Misa en San Miguel", "12:00 pm - Misa en Bolonchén", "12:30 pm - Misa en Paraíso", "5:30 pm - Misa en Pich", "7:00 pm - Misa en Bonfil"]
-    };
+    };const today = new Date();
+const currentMonth = today.getMonth() + 1;
+const currentYear = today.getFullYear();
+createCalendar(currentYear, currentMonth);
 
-    const today = new Date();
-    const currentMonth = today.getMonth() + 1;
-    const currentYear = today.getFullYear();
-    createCalendar(currentYear, currentMonth);
-
-    function createCalendar(year, month) {
-      const calendarEl = document.getElementById('calendar');
-      calendarEl.innerHTML = '';
-      const date = new Date(year, month - 1, 1);
-      const firstDay = date.getDay() === 0 ? 7 : date.getDay();
-      const daysInMonth = new Date(year, month, 0).getDate();
-      const table = document.createElement('table');
-      const thead = document.createElement('thead');
-      const headRow = document.createElement('tr');
-      const days = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
-      days.forEach(day => {
-        const th = document.createElement('th');
-        th.textContent = day;
-        headRow.appendChild(th);
-      });
-      thead.appendChild(headRow);
-      table.appendChild(thead);
-      const tbody = document.createElement('tbody');
-      let row = document.createElement('tr');
-      let dayCount = 1;
-      let filledCells = 0;
-      for(let i=1; i<firstDay; i++) {
-        const emptyCell = document.createElement('td');
-        emptyCell.classList.add('no-activity');
-        row.appendChild(emptyCell);
-        filledCells++;
-      }
-      while(dayCount <= daysInMonth) {
-        if(filledCells === 7) {
-          tbody.appendChild(row);
-          row = document.createElement('tr');
-          filledCells = 0;
-        }
-        const cell = document.createElement('td');
-        const dateStr = `${year}-${String(month).padStart(2,'0')}-${String(dayCount).padStart(2,'0')}`;
-        const dayNumber = document.createElement('div');
-        dayNumber.classList.add('day-number');
-        dayNumber.textContent = dayCount;
-        cell.appendChild(dayNumber);
-        if (activities[dateStr]) {
-          const tooltip = document.createElement('div');
-          tooltip.classList.add('activity-tooltip');
-          tooltip.innerHTML = activities[dateStr].map(act => `• ${act}`).join('<br>');
-          cell.appendChild(tooltip);
-        } else {
-          cell.classList.add('no-activity');
-        }
-        row.appendChild(cell);
-        dayCount++;
-        filledCells++;
-      }
-      while(filledCells > 0 && filledCells < 7) {
-        const emptyCell = document.createElement('td');
-        emptyCell.classList.add('no-activity');
-        row.appendChild(emptyCell);
-        filledCells++;
-      }
+function createCalendar(year, month) {
+  const calendarEl = document.getElementById('calendar');
+  calendarEl.innerHTML = '';
+  const date = new Date(year, month - 1, 1);
+  const firstDay = date.getDay() === 0 ? 7 : date.getDay();
+  const daysInMonth = new Date(year, month, 0).getDate();
+  const table = document.createElement('table');
+  const thead = document.createElement('thead');
+  const headRow = document.createElement('tr');
+  const days = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
+  days.forEach(day => {
+    const th = document.createElement('th');
+    th.textContent = day;
+    headRow.appendChild(th);
+  });
+  thead.appendChild(headRow);
+  table.appendChild(thead);
+  const tbody = document.createElement('tbody');
+  let row = document.createElement('tr');
+  let dayCount = 1;
+  let filledCells = 0;
+  for(let i=1; i<firstDay; i++) {
+    const emptyCell = document.createElement('td');
+    emptyCell.classList.add('no-activity');
+    row.appendChild(emptyCell);
+    filledCells++;
+  }
+  while(dayCount <= daysInMonth) {
+    if(filledCells === 7) {
       tbody.appendChild(row);
-      table.appendChild(tbody);
-      calendarEl.appendChild(table);
+      row = document.createElement('tr');
+      filledCells = 0;
     }
+    const cell = document.createElement('td');
+    const dateStr = `${year}-${String(month).padStart(2,'0')}-${String(dayCount).padStart(2,'0')}`;
+    const dayNumber = document.createElement('div');
+    dayNumber.classList.add('day-number');
+    dayNumber.textContent = dayCount;
+    cell.appendChild(dayNumber);
+    if (activities[dateStr]) {
+      const tooltip = document.createElement('div');
+      tooltip.classList.add('activity-tooltip');
+      tooltip.innerHTML = activities[dateStr].map(act => `• ${act}`).join('<br>');
+      cell.appendChild(tooltip);
+    } else {
+      cell.classList.add('no-activity');
+    }
+    row.appendChild(cell);
+    dayCount++;
+    filledCells++;
+  }
+  while(filledCells > 0 && filledCells < 7) {
+    const emptyCell = document.createElement('td');
+    emptyCell.classList.add('no-activity');
+    row.appendChild(emptyCell);
+    filledCells++;
+  }
+  tbody.appendChild(row);
+  table.appendChild(tbody);
+  calendarEl.appendChild(table);
+}
+
   </script>
 </body>
 </html>
